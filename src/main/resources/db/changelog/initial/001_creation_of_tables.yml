@@ -1,0 +1,167 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ahmatbek
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: avatar
+                  type: varchar(255)
+              - column:
+                  name: user_info
+                  type: varchar(255)
+
+  - changeSet:
+      id: 2
+      author: Ahmatbek
+      changes:
+        - createTable:
+            tableName: posts
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false,
+                    foreignKeyName: fk_post_user,
+                    references: users(id)
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: photo
+                  type: varchar(255)
+
+  - changeSet:
+      id: 3
+      author: Ahmatbek
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: post_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: varchar(255)
+              - column:
+                  name: writer_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: comments
+            baseColumnNames: post_id
+            constraintName: fk_comment_post
+            referencedTableName: posts
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: comments
+            baseColumnNames: writer_id
+            constraintName: fk_comment_user
+            referencedTableName: users
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 4
+      author: Ahmatbek
+      changes:
+        - createTable:
+            tableName: likes
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: post_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: likes
+            baseColumnNames: post_id
+            constraintName: fk_like_post
+            referencedTableName: posts
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: likes
+            baseColumnNames: user_id
+            constraintName: fk_like_user
+            referencedTableName: users
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 5
+      author: Ahmatbek
+      changes:
+        - createTable:
+            tableName: followers
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: follower_id
+                  type: bigint
+                  constraints:
+                    nullable: false,
+                    foreignKeyName: fk_follower_user,
+                    references: users(id)
+              - column:
+                  name: receiver_id
+                  type: bigint
+                  constraints:
+                    nullable: false,
+                    foreignKeyName: fk_receiver_user,
+                    references: users(id)
