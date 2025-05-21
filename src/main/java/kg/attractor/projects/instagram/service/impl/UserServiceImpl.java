@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(inputUserDto.getId())
                         .orElseThrow(() -> new NoSuchElementException("user not found by id " + inputUserDto.getId()));
 
-        user.setLogin(inputUserDto.getLogin());
         user.setInfo(inputUserDto.getInfo());
         if (!avatarName.isBlank()) user.setAvatar(avatarName);
         return userMapper.mapToDto(userRepository.save(user));

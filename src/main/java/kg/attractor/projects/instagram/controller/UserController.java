@@ -27,7 +27,6 @@ public class UserController {
     private final PostService postService;
     private final FollowerService followerService;
     private final UserService userService;
-    private final UserService userService;
 
     @GetMapping("profile")
     public String getProfile(Model model) {
@@ -56,7 +55,7 @@ public class UserController {
             return "users/update_profile";
         }
         userService.updateProfile(user);
-        return "users/profile";
+        return "redirect:/users/profile";
     }
 
     @GetMapping("profile/{login}")

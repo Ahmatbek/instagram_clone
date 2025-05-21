@@ -44,7 +44,6 @@ public class AuthorizedUserServiceImpl implements AuthorizedUserService {
                         .id(user.getId())
                         .username(user.getLogin())
                         .info(user.getInfo())
-                        .login(user.getLogin())
                         .build())
                 .orElseThrow(() -> new NoSuchElementException("auth user not found"));
     }

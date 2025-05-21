@@ -60,17 +60,9 @@
 
             <div class="form-group">
                 <label for="info" class="form-label">
-                    <i class="bi bi-card-heading form-icon me-2"></i>inputUserDtoname
+                    <i class="bi bi-card-heading form-icon me-2"></i>name
                 </label>
                 <@spring.formInput "inputUserDto.username", 'class="form-control" placeholder="Введите Имя" id="inputUserDtoname"'/>
-                <@spring.showErrors "<br>" "text-danger small"/>
-            </div>
-
-            <div class="form-group">
-                <label for="info" class="form-label">
-                    <i class="bi bi-card-heading form-icon me-2"></i>inputUserDto Login
-                </label>
-                <@spring.formInput "inputUserDto.login", 'class="form-control" placeholder="Введите логин" id="login"'/>
                 <@spring.showErrors "<br>" "text-danger small"/>
             </div>
 
