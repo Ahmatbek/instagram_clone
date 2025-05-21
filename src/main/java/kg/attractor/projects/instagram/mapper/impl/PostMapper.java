@@ -17,6 +17,7 @@ public class PostMapper implements Mapper<PostDto, Post> {
                 .id(entity.getId())
                 .userId(entity.getUser().getId())
                 .description(entity.getDescription())
+                .imageUrl(entity.getPhoto())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class PostMapper implements Mapper<PostDto, Post> {
 
         post.setUser(user);
         post.setDescription(dto.getDescription());
+        post.setPhoto(dto.getImageUrl());
         return post;
     }
 }

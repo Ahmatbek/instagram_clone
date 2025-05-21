@@ -13,7 +13,6 @@
                         <i class="bi bi-person-fill fs-3"></i>
                     </div>
                 </#if>
-                <a href="/posts" class="btn btn-success mb-4">Create post</a>
                 <a href="/followers/userFollower" class="btn btn-success mb-4">Followers ${followers}</a>
                 <a href="/followers/userReceiver" class="btn btn-success mb-4">Receivers ${receiver}</a>
             </div>
