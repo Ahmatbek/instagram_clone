@@ -1,5 +1,6 @@
 package kg.attractor.projects.instagram.service.impl;
 
+import kg.attractor.projects.instagram.dto.InputUserDto;
 import kg.attractor.projects.instagram.dto.UserDto;
 import kg.attractor.projects.instagram.mapper.impl.UserMapper;
 import kg.attractor.projects.instagram.repository.UserRepository;
@@ -33,6 +34,18 @@ public class AuthorizedUserServiceImpl implements AuthorizedUserService {
     public UserDto getAuthorizedUser() {
         return userRepository.findUserByLogin(getAuthentication().getUsername())
                 .map(userMapper::mapToDto)
+                .orElseThrow(() -> new NoSuchElementException("auth user not found"));
+    }
+
+    @Override
+    public InputUserDto getAuthorizedUserInput() {
+        return userRepository.findUserByLogin(getAuthentication().getUsername())
+                .map(user -> InputUserDto.builder()
+                        .id(user.getId())
+                        .username(user.getLogin())
+                        .info(user.getInfo())
+                        .login(user.getLogin())
+                        .build())
                 .orElseThrow(() -> new NoSuchElementException("auth user not found"));
     }
 }
