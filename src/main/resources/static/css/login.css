@@ -1,0 +1,127 @@
+.custom-body {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.custom-login-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.custom-brand {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.custom-brand-logo {
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+}
+
+.custom-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.custom-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.custom-form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-form-control:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-btn-primary {
+    width: 100%;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.custom-btn-primary:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: #555;
+}
+
+.social-login {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-btn {
+    background: #eee;
+    padding: 0.8rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.social-btn:hover {
+    background: #ddd;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.signup-link a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+}

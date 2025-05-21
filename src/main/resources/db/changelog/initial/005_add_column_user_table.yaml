@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005_add_column_user_table.yaml
+      author: Kanybek
+      changes:
+        - renameColumn:
+            tableName: users
+            oldColumnName: username
+            newColumnName: login
+
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(155)
+                  constraints:
+                    nullable: true

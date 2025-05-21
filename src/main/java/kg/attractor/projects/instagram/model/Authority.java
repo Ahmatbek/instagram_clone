@@ -13,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "authority")
 public class Authority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", updatable = false)

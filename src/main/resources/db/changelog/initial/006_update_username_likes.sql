@@ -1,0 +1,10 @@
+UPDATE users SET username = 'Alice' WHERE login = 'alice';
+UPDATE users SET username = 'Bob' WHERE login = 'bob';
+UPDATE users SET username = 'Carol' WHERE login = 'carol';
+UPDATE users SET username = 'Dave' WHERE login = 'dave';
+UPDATE users SET username = 'Eve' WHERE login = 'eve';
+UPDATE users SET username = 'Frank' WHERE login = 'frank';
+UPDATE users SET username = 'Grace' WHERE login = 'grace';
+UPDATE users SET username = 'Heidi' WHERE login = 'heidi';
+UPDATE users SET username = 'Ivan' WHERE login = 'ivan';
+UPDATE users SET username = 'Judy' WHERE login = 'judy';
