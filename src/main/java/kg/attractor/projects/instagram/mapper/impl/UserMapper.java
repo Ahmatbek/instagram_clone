@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserMapper implements Mapper<UserDto, User> {
     private final PasswordEncoder passwordEncoder;
     private final AuthorityMapper authorityMapper;
+    private final PostMapper postMapper;
 
     @Override
     public UserDto mapToDto(User entity) {
@@ -23,6 +24,9 @@ public class UserMapper implements Mapper<UserDto, User> {
                 .avatar(entity.getAvatar())
                 .info(entity.getInfo())
                 .authority(authorityMapper.mapToDto(entity.getAuthority()))
+                .posts(entity.getPosts() != null ? entity.getPosts().stream()
+                        .map(postMapper::mapToDto)
+                        .toList() : null)
                 .build();
     }
 
@@ -35,6 +39,9 @@ public class UserMapper implements Mapper<UserDto, User> {
         user.setAvatar(dto.getAvatar());
         user.setInfo(dto.getInfo());
         user.setAuthority(authorityMapper.mapToEntity(dto.getAuthority()));
+        user.setPosts(dto.getPosts() != null ? dto.getPosts().stream()
+                .map(postMapper::mapToEntity)
+                .toList() : null);
         return user;
     }
 }

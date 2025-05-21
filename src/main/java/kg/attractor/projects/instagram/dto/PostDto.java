@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 public class PostDto {
     private Long id;
-    private String userLogin;
+    private Long userId;
 
     @NotBlank(message = "description cannot be blank")
     private String description;
