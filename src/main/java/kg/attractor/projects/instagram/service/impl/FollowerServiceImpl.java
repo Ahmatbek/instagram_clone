@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FollowerServiceImpl implements FollowerService {
     private final FollowerRepository followerRepository;
-    private final AuthorizedUserService authorizedUserService;
     private final FollowerMapper followerMapper;
 
     @Override

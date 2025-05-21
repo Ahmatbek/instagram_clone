@@ -32,6 +32,7 @@ public class SecurityConfig {
 
                                 // Users
                                 .requestMatchers("/users/profile").authenticated()
+                                .requestMatchers("/users/update/profile").authenticated()
 
                                 .anyRequest().permitAll());
         return http.build();
