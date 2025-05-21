@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007_change_nullable_constraint.yaml
+      author: Kanybek
+      changes:
+        - addNotNullConstraint:
+            tableName: users
+            columnName: username
+            constraintName: user_username_not_null
