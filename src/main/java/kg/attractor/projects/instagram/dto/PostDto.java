@@ -19,4 +19,6 @@ public class PostDto {
 
     @NotNull(message = "multipart file cannot be null")
     private MultipartFile photo;
+
+    private String imageUrl;
 }
