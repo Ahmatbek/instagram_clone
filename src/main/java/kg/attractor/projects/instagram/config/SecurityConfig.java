@@ -23,13 +23,10 @@ public class SecurityConfig {
                         .failureUrl("/auth/login?error=true")
                         .defaultSuccessUrl("/users/profile")
                         .permitAll())
-
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                         .permitAll())
-
                 .httpBasic(Customizer.withDefaults())
-
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
 
