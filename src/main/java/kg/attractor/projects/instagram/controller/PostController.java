@@ -58,4 +58,10 @@ public class PostController {
         return "posts/all_posts";
     }
 
+    @GetMapping("/all")
+    public String allPosts(Model model) {
+        model.addAttribute("posts", postService.getAllPosts());
+        return "posts/all_posts";
+    }
+
 }
