@@ -64,7 +64,9 @@
                                             </button>
                                         </form>
                                     <#else>
-                                        <form action="/likes/like/${post.id}" method="post" class="me-2">
+                                        <form action="/likes/like/${post.id}" method="post" class="me-2" onclick="function ss(e){
+                                            e.preventDefault()
+                                        }">
                                             <#if _csrf??>
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                        value="${_csrf.token}"/>
