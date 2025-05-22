@@ -10,4 +10,8 @@ public interface PostService {
     void deletePost(Long postId);
     List<PostDto> getAllPosts();
     List<PostDto> getUsersPosts(long userId);
+
+    PostDto findPostById(Long postId);
+
+    PostDto updatePostDto(PostDto postDto) throws IOException;
 }

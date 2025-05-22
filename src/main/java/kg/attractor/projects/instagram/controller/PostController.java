@@ -6,6 +6,7 @@ import kg.attractor.projects.instagram.model.Post;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.message.LoggerNameAwareMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +44,27 @@ public class PostController {
         postService.savePost(postDto);
         return "redirect:/users/profile";
     }
+
+    @GetMapping("update")
+    public String updatePost(Long postId, Model model) {
+        model.addAttribute("post", postService.findPostById(postId));
+        return "posts/update_post";
+    }
+
+    @PostMapping("update/post")
+    public String updatePost(
+            @Valid PostDto postDto,
+            BindingResult bindingResult,
+            Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("post", postDto);
+            return "posts/update_post";
+        }
+
+        postService
+    }
+
     @PostMapping("{id}")
     public String deletePost(
             @PathVariable Long id

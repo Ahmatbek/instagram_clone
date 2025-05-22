@@ -45,7 +45,7 @@
     <h1 class="pt-4">Upload New File</h1>
 
     <div class="upload-container">
-        <form action="/posts" method="POST" enctype="multipart/form-data">
+        <form action="/posts/update" method="POST" enctype="multipart/form-data">
             <@spring.bind "post"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
@@ -67,7 +67,7 @@
                 <@spring.formInput "post.description", 'class="form-control" placeholder="Введите описание" id="description"'/>
                 <@spring.showErrors "<br>" "custom-error"/>
             </div>
-            
+
             <button type="submit" class="submit-btn">Upload File</button>
         </form>
     </div>

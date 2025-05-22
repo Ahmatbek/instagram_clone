@@ -1,7 +1,6 @@
 package kg.attractor.projects.instagram.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +17,5 @@ public class InputUserDto {
 
     private String info;
 
-    @NotNull(message = "avatar cannot be null")
     private MultipartFile avatar;
 }
