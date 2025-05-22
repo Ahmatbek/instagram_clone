@@ -21,19 +21,22 @@ public class SecurityConfig {
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
                         .failureUrl("/auth/login?error=true")
+                        .defaultSuccessUrl("/users/profile")
                         .permitAll())
-
                 .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .permitAll())
-
                 .httpBasic(Customizer.withDefaults())
-
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
 
                                 // Users
                                 .requestMatchers("/users/profile").authenticated()
+                                .requestMatchers("/users/update/profile").authenticated()
+
+                                // Likes
+                                .requestMatchers("/likes/like/*").authenticated()
+                                .requestMatchers("/likes/dislike/*").authenticated()
 
                                 .anyRequest().permitAll());
         return http.build();

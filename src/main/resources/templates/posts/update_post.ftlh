@@ -45,8 +45,10 @@
     <h1 class="pt-4">Upload New File</h1>
 
     <div class="upload-container">
-        <form action="/posts" method="POST" enctype="multipart/form-data">
+        <form action="/posts/update" method="POST" enctype="multipart/form-data">
+            <@spring.bind "post"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+            <input type="hidden" name="id" value="${post.id}">
 
             <div class="form-group">
                 <label for="photo" class="form-label">Select Picture</label>
@@ -54,11 +56,7 @@
                        id="photo"
                        name="photo"
                        class="form-control"
-                       <#if post.photo??>value="${post.photo}!"</#if>>
-                <#if springMacroRequestContext.model?has_content && springMacroRequestContext.model["postDto"]??>
-                    <@spring.bind "postDto.photo"/>
-                    <@spring.showErrors "<br>" "text-danger small"/>
-                </#if>
+                       <#if post.photo??>value="${post.photo}"</#if>>
             </div>
 
             <div class="form-group">
@@ -68,7 +66,7 @@
                 <@spring.formInput "post.description", 'class="form-control" placeholder="Введите описание" id="description"'/>
                 <@spring.showErrors "<br>" "text-danger small"/>
             </div>
-            
+
             <button type="submit" class="submit-btn">Upload File</button>
         </form>
     </div>

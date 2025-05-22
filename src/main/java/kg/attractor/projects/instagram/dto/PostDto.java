@@ -1,7 +1,8 @@
 package kg.attractor.projects.instagram.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import kg.attractor.projects.instagram.annotations.NonEmptyPicture;
+import kg.attractor.projects.instagram.marks.ValidationGroup;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,11 @@ public class PostDto {
     @NotBlank(message = "description cannot be blank")
     private String description;
 
-    @NotNull(message = "multipart file cannot be null")
+    @NonEmptyPicture(groups = ValidationGroup.OnCreate.class)
     private MultipartFile photo;
+
+    private String imageUrl;
+
+    private Long likesCount;
+    private boolean likedByCurrentUser;
 }

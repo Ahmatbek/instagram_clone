@@ -33,6 +33,7 @@ public class UserMapper implements Mapper<UserDto, User> {
     @Override
     public User mapToEntity(UserDto dto) {
         User user = new User();
+        user.setId(dto.getId());
         user.setLogin(dto.getLogin());
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));

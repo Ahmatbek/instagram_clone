@@ -1,7 +1,8 @@
 package kg.attractor.projects.instagram.mapper.impl;
 
-import kg.attractor.projects.instagram.dto.PostDto;
+import kg.attractor.projects.instagram.dto.LikeDto;
 import kg.attractor.projects.instagram.mapper.Mapper;
+import kg.attractor.projects.instagram.model.Like;
 import kg.attractor.projects.instagram.model.Post;
 import kg.attractor.projects.instagram.model.User;
 import lombok.RequiredArgsConstructor;
@@ -9,29 +10,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PostMapper implements Mapper<PostDto, Post> {
+public class LikeMapper implements Mapper<LikeDto, Like> {
 
     @Override
-    public PostDto mapToDto(Post entity) {
-        return PostDto.builder()
+    public LikeDto mapToDto(Like entity) {
+        return LikeDto.builder()
                 .id(entity.getId())
+                .postId(entity.getPost().getId())
                 .userId(entity.getUser().getId())
-                .description(entity.getDescription())
-                .imageUrl(entity.getPhoto())
                 .build();
     }
 
     @Override
-    public Post mapToEntity(PostDto dto) {
+    public Like mapToEntity(LikeDto dto) {
         Post post = new Post();
-        post.setId(dto.getId());
+        post.setId(dto.getPostId());
 
         User user = new User();
         user.setId(dto.getUserId());
 
-        post.setUser(user);
-        post.setDescription(dto.getDescription());
-        post.setPhoto(dto.getImageUrl());
-        return post;
+        Like like = new Like();
+        like.setId(dto.getId());
+        like.setPost(post);
+        like.setUser(user);
+        return like;
     }
 }
