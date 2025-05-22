@@ -67,14 +67,15 @@ public class UserController {
         model.addAttribute("receiver", followerService.numberOfReceivers(userId));
         return "users/follower_profile";
     }
+
     @GetMapping()
     public ResponseEntity<?> getUsers() {
         return ResponseEntity.ofNullable(userService.getAllUsers());
     }
+
     @GetMapping("/search")
     public String search(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "search";
     }
-
 }

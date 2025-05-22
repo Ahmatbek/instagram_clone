@@ -2,13 +2,20 @@ package kg.attractor.projects.instagram.service.impl;
 
 import kg.attractor.projects.instagram.dto.InputUserDto;
 import kg.attractor.projects.instagram.dto.UserDto;
+import kg.attractor.projects.instagram.mapper.impl.InputUserMapper;
 import kg.attractor.projects.instagram.mapper.impl.UserMapper;
 import kg.attractor.projects.instagram.model.User;
 import kg.attractor.projects.instagram.repository.UserRepository;
+import kg.attractor.projects.instagram.security.MyUserDetails;
 import kg.attractor.projects.instagram.service.AuthorityService;
 import kg.attractor.projects.instagram.service.UserService;
 import kg.attractor.projects.instagram.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final AuthorityService authorityService;
+    private final PasswordEncoder passwordEncoder;
+    private final InputUserMapper inputUserMapper;
 
     @Override
     public UserDto findUserByLogin(String login) {
@@ -48,18 +57,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateProfile(InputUserDto inputUserDto) throws IOException {
+    public UserDto updateProfile(InputUserDto inputUserDto) {
         MultipartFile multipartFile = inputUserDto.getAvatar();
         String avatarName = multipartFile != null && !multipartFile.isEmpty() ?
                 Util.uploadResource(inputUserDto.getAvatar()) : "";
 
-        User user = userRepository.findById(inputUserDto.getId())
-                .orElseThrow(() -> new NoSuchElementException("user not found by id " + inputUserDto.getId()));
-
-        user.setUsername(inputUserDto.getUsername());
-        user.setInfo(inputUserDto.getInfo());
+        User user = inputUserMapper.mapToEntity(inputUserDto);
         if (!avatarName.isBlank()) user.setAvatar(avatarName);
-        return userMapper.mapToDto(userRepository.save(user));
+
+        UserDto userDto = userMapper.mapToDto(userRepository.save(user));
+
+        MyUserDetails myUserDetails = new MyUserDetails(userDto.getLogin(), userDto.getAuthority().getName(), userDto.getPassword());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(myUserDetails, null, myUserDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return userDto;
     }
 
     @Override

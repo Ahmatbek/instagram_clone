@@ -17,6 +17,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @UtilityClass
 public class Util {
@@ -69,5 +70,9 @@ public class Util {
     public static MediaType defineFileType(String filePath) throws IOException {
         String fileType = Files.probeContentType(Paths.get(filePath));
         return MediaType.parseMediaType(fileType);
+    }
+
+    public static boolean isPasswordByCrypt(String password) {
+        return Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z]{53}").matcher(password).matches();
     }
 }

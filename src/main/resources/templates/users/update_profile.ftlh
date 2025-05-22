@@ -60,7 +60,15 @@
 
             <div class="form-group">
                 <label for="info" class="form-label">
-                    <i class="bi bi-card-heading form-icon me-2"></i>name
+                    <i class="bi bi-card-heading form-icon me-2"></i>login
+                </label>
+                <@spring.formInput "inputUserDto.login", 'class="form-control" placeholder="Введите Логин" id="login"'/>
+                <@spring.showErrors "<br>" "text-danger small"/>
+            </div>
+
+            <div class="form-group">
+                <label for="info" class="form-label">
+                    <i class="bi bi-card-heading form-icon me-2"></i>username
                 </label>
                 <@spring.formInput "inputUserDto.username", 'class="form-control" placeholder="Введите Имя" id="inputUserDtoname"'/>
                 <@spring.showErrors "<br>" "text-danger small"/>
@@ -74,7 +82,18 @@
                 <@spring.showErrors "<br>" "text-danger small"/>
             </div>
 
-            <button type="submit" class="submit-btn">Upload Profile</button>
+            <div class="form-group">
+                <label for="info" class="form-label">
+                    <i class="bi bi-card-heading form-icon me-2"></i>Password
+                </label>
+                <label for="password"></label><input type="password" name="password" value="${inputUserDto.password}" class="form-control" placeholder="Введите пароль" id="password"/>
+                <#if springMacroRequestContext.model?has_content && springMacroRequestContext.model["inputUserDto"]??>
+                    <@spring.bind "inputUserDto.password"/>
+                    <@spring.showErrors "<br>" "text-danger small"/>
+                </#if>
+            </div>
+
+            <button type="submit" class="submit-btn">Update Profile</button>
         </form>
     </div>
 </@layout.layout>
