@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008_change_comment_model.yaml
+      author: Kanybek
+      changes:
+        - addColumn:
+            tableName: comments
+            columns:
+              - column:
+                  name: created_at
+                  type: timestamp

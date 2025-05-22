@@ -24,5 +24,5 @@ public class PostDto {
     private String imageUrl;
 
     private Long likesCount;
-    private boolean likedByCurrentUser;
+    private Boolean likedByCurrentUser;
 }

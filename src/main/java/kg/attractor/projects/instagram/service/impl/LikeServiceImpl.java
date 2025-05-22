@@ -37,7 +37,7 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public void likePost(Long postId) {
         Assert.notNull(postId, "postId must not be null");
-        if (!postService.isPostExist(postId)) throw new NoSuchElementException("post not found by id " + postId);
+        postService.makeSurePostExist(postId);
 
         Long authorizedUserId = authorizedUserService.getAuthorizedUserId();
 
@@ -53,7 +53,7 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public void dislikePost(Long postId) {
         Assert.notNull(postId, "postId must not be null");
-        if (!postService.isPostExist(postId)) throw new NoSuchElementException("post not found by id " + postId);
+        postService.makeSurePostExist(postId);
 
         Long authorizedUserId = authorizedUserService.getAuthorizedUserId();
 

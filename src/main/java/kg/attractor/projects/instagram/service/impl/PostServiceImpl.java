@@ -39,9 +39,9 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long postId) {
         Long userId = authorizedUserService.getAuthorizedUser().getId();
 
-        postRepository.findByPostIdAndUserId(userId, postId)
+        Post post = postRepository.findByPostIdAndUserId(userId, postId)
                 .orElseThrow(() -> new NoSuchElementException("Post not found" + postId));
-        postRepository.deleteById(postId);
+        postRepository.delete(post);
 
     }
 
@@ -77,14 +77,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto findPostById(Long postId) {
         Assert.notNull(postId, "post id cannot be null");
-        return postRepository.findById(postId)
+        PostDto postDto = postRepository.findById(postId)
                 .map(postMapper::mapToDto)
                 .orElseThrow(() -> new NoSuchElementException("Post not found" + postId));
+
+        postDto.setLikesCount(likeService.findAllLikesByPostId(postId));
+        postDto.setLikedByCurrentUser(likeService.isLikeExist(postDto.getId(), authorizedUserService.getAuthorizedUserId()));
+        return postDto;
     }
 
     @Override
-    public boolean isPostExist(Long postId) {
-        return postRepository.existsById(postId);
+    public void makeSurePostExist(Long postId) {
+        if (!postRepository.existsById(postId)) throw new NoSuchElementException("post not found " + postId);
     }
 
     @Transactional

@@ -39,6 +39,6 @@ public class User {
     @JoinColumn(name = "authority_id")
     private Authority authority;
 
-    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "user")
     private List<Post> posts;
 }

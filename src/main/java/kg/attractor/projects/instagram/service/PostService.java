@@ -13,7 +13,7 @@ public interface PostService {
 
     PostDto findPostById(Long postId);
 
-    boolean isPostExist(Long postId);
+    void makeSurePostExist(Long postId);
 
     PostDto updatePostDto(PostDto postDto) throws IOException;
 }
