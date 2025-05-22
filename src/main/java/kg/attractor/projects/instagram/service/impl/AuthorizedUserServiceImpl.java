@@ -31,7 +31,7 @@ public class AuthorizedUserServiceImpl implements AuthorizedUserService {
     }
 
     @Override
-    public UserDto getAuthorizedUser() {
+    public UserDto getAuthorizedUser() throws IllegalArgumentException {
         return userRepository.findUserByLogin(getAuthentication().getUsername())
                 .map(userMapper::mapToDto)
                 .orElseThrow(() -> new NoSuchElementException("auth user not found"));

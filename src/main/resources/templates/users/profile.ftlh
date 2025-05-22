@@ -5,7 +5,7 @@
         <!-- Profile Section -->
         <div class="d-flex flex-column align-items-center text-center mb-5">
             <#if user.avatar?? && user.avatar?has_content>
-                <img src="${user.avatar}" class="rounded-circle mb-3" alt="Avatar"
+                <img src="/images/${user.avatar}" class="rounded-circle mb-3" alt="Avatar"
                      style="width: 150px; height: 150px; object-fit: cover;">
             <#else>
                 <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white mb-3"
@@ -24,7 +24,6 @@
             </div>
 
             <div class="d-flex flex-wrap justify-content-center gap-2">
-                <a href="us"></a>
                 <a href="/posts" class="btn btn-outline-dark">Create Post</a>
                 <a href="/followers/userFollower" class="btn btn-outline-dark">Followers</a>
                 <a href="/followers/userReceiver" class="btn btn-outline-dark">Following</a>

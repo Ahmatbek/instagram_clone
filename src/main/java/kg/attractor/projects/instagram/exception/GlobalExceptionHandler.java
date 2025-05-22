@@ -30,4 +30,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseBody> validationHandler(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(errorService.makeResponse(e.getBindingResult()), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String illegalArgumentHandler(Model model, HttpServletRequest request) {
+        model.addAttribute("status", HttpStatus.BAD_REQUEST.value());
+        return "errors/error";
+    }
 }
