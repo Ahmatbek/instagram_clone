@@ -42,39 +42,32 @@
         }
     </style>
 
-    <h1 class="pt-4">Update Profile</h1>
+    <h1 class="pt-4">Upload New File</h1>
 
     <div class="upload-container">
-        <form action="/users/update/profile" method="POST" enctype="multipart/form-data">
+        <form action="/posts/update" method="POST" enctype="multipart/form-data">
+            <@spring.bind "post"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-            <@spring.formHiddenInput "inputUserDto.id", 'class="form-control"'/>
+            <input type="hidden" name="id" value="${post.id}">
 
             <div class="form-group">
                 <label for="photo" class="form-label">Select Picture</label>
                 <input type="file"
                        id="photo"
-                       name="avatar"
-                       <#if inputUserDto.avatar??>value="${inputUserDto.avatar}" </#if>
-                       class="form-control">
+                       name="photo"
+                       class="form-control"
+                       <#if post.photo??>value="${post.photo}"</#if>>
             </div>
 
             <div class="form-group">
-                <label for="info" class="form-label">
-                    <i class="bi bi-card-heading form-icon me-2"></i>name
+                <label for="description" class="form-label">
+                    <i class="bi bi-card-heading form-icon me-2"></i>Описание
                 </label>
-                <@spring.formInput "inputUserDto.username", 'class="form-control" placeholder="Введите Имя" id="inputUserDtoname"'/>
+                <@spring.formInput "post.description", 'class="form-control" placeholder="Введите описание" id="description"'/>
                 <@spring.showErrors "<br>" "text-danger small"/>
             </div>
 
-            <div class="form-group">
-                <label for="info" class="form-label">
-                    <i class="bi bi-card-heading form-icon me-2"></i>Info
-                </label>
-                <@spring.formInput "inputUserDto.info", 'class="form-control" placeholder="Введите информацию" id="info"'/>
-                <@spring.showErrors "<br>" "text-danger small"/>
-            </div>
-
-            <button type="submit" class="submit-btn">Upload Profile</button>
+            <button type="submit" class="submit-btn">Upload File</button>
         </form>
     </div>
 </@layout.layout>

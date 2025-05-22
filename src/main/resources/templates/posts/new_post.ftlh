@@ -46,7 +46,6 @@
 
     <div class="upload-container">
         <form action="/posts" method="POST" enctype="multipart/form-data">
-            <@spring.bind "post"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
             <div class="form-group">
@@ -55,8 +54,11 @@
                        id="photo"
                        name="photo"
                        class="form-control"
-                       required>
-                <@spring.showErrors "<br>" "custom-error"/>
+                       <#if post.photo??>value="${post.photo}!"</#if>>
+                <#if springMacroRequestContext.model?has_content && springMacroRequestContext.model["postDto"]??>
+                    <@spring.bind "postDto.photo"/>
+                    <@spring.showErrors "<br>" "text-danger small"/>
+                </#if>
             </div>
 
             <div class="form-group">
@@ -64,7 +66,7 @@
                     <i class="bi bi-card-heading form-icon me-2"></i>Описание
                 </label>
                 <@spring.formInput "post.description", 'class="form-control" placeholder="Введите описание" id="description"'/>
-                <@spring.showErrors "<br>" "custom-error"/>
+                <@spring.showErrors "<br>" "text-danger small"/>
             </div>
             
             <button type="submit" class="submit-btn">Upload File</button>

@@ -15,5 +15,7 @@ public interface UserService {
 
     UserDto updateProfile(InputUserDto inputUserDto) throws IOException;
 
+    UserDto findUserById(Long id);
+
     List<UserDto> getAllUsers();
 }
