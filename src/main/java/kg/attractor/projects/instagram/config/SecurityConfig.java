@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/users/profile")
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests ->

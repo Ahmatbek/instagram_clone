@@ -7,6 +7,7 @@ import kg.attractor.projects.instagram.service.FollowerService;
 import kg.attractor.projects.instagram.service.PostService;
 import kg.attractor.projects.instagram.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,4 +67,14 @@ public class UserController {
         model.addAttribute("receiver", followerService.numberOfReceivers(userId));
         return "users/follower_profile";
     }
+    @GetMapping()
+    public ResponseEntity<?> getUsers() {
+        return ResponseEntity.ofNullable(userService.getAllUsers());
+    }
+    @GetMapping("/search")
+    public String search(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "search";
+    }
+
 }

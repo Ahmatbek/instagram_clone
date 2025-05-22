@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -68,5 +69,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .map(userMapper::mapToDto)
                 .orElseThrow(() -> new NoSuchElementException("user not found by id " + id));
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::mapToDto)
+                .toList();
     }
 }
