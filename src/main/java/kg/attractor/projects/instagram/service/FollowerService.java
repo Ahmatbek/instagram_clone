@@ -10,4 +10,7 @@ public interface FollowerService {
     int numberOfReceivers(long id);
     List<UserDto> userFollowers(long id);
     List<UserDto> userReceivers(long id);
+    void follow(String userId);
+
+    boolean doTheyFollowEachOther(long toFollowId, long receiverId);
 }

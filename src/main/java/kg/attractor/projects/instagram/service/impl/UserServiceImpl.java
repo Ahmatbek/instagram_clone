@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -56,5 +57,13 @@ public class UserServiceImpl implements UserService {
         user.setInfo(inputUserDto.getInfo());
         if (!avatarName.isBlank()) user.setAvatar(avatarName);
         return userMapper.mapToDto(userRepository.save(user));
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::mapToDto)
+                .toList();
     }
 }

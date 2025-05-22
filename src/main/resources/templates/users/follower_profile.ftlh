@@ -13,6 +13,13 @@
                         <i class="bi bi-person-fill fs-3"></i>
                     </div>
                 </#if>
+                <form action="/followers/${user.login}" method="post">
+                    <#if _csrf??>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </#if>
+                    <button type="submit" class="btn btn-success mb-4">Follow</button>
+                </form>
+
                 <a href="/followers/userFollower" class="btn btn-success mb-4">Followers ${followers}</a>
                 <a href="/followers/userReceiver" class="btn btn-success mb-4">Receivers ${receiver}</a>
             </div>
