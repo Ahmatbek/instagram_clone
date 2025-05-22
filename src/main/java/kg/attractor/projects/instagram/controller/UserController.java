@@ -1,12 +1,10 @@
 package kg.attractor.projects.instagram.controller;
 
-import kg.attractor.projects.instagram.dto.UserDto;
 import jakarta.validation.Valid;
 import kg.attractor.projects.instagram.dto.InputUserDto;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
 import kg.attractor.projects.instagram.service.PostService;
-import kg.attractor.projects.instagram.service.UserService;
 import kg.attractor.projects.instagram.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -44,7 +42,7 @@ public class UserController {
         return "users/update_profile";
     }
 
-    @PostMapping("profile")
+    @PostMapping("update/profile")
     public String updateProfile(
             @Valid InputUserDto user,
             BindingResult bindingResult,

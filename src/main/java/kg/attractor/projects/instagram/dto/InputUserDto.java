@@ -1,6 +1,7 @@
 package kg.attractor.projects.instagram.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import kg.attractor.projects.instagram.annotations.NonEmptyPicture;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 

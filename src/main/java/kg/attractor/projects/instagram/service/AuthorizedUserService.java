@@ -9,5 +9,7 @@ public interface AuthorizedUserService {
 
     UserDto getAuthorizedUser();
 
+    Long getAuthorizedUserId();
+
     InputUserDto getAuthorizedUserInput();
 }

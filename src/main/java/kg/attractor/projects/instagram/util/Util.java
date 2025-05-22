@@ -22,7 +22,8 @@ import java.util.UUID;
 public class Util {
     private static final String DIRECTORY = "data/pictures";
 
-    public static String uploadResource(MultipartFile file) throws IOException {
+    @SneakyThrows
+    public static String uploadResource(MultipartFile file) {
         if (file == null)
             throw new IllegalArgumentException("multipart file is null");
 

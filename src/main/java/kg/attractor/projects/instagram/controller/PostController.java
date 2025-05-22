@@ -1,15 +1,15 @@
 package kg.attractor.projects.instagram.controller;
 
-import jakarta.validation.Valid;
 import kg.attractor.projects.instagram.dto.PostDto;
+import kg.attractor.projects.instagram.marks.ValidationGroup;
 import kg.attractor.projects.instagram.model.Post;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.message.LoggerNameAwareMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ public class PostController {
 
     @PostMapping
     public String savePost(
-            @Valid PostDto postDto,
+            @Validated(ValidationGroup.OnCreate.class) PostDto postDto,
             BindingResult bindingResult,
             Model model
     ) throws IOException {
@@ -45,24 +45,25 @@ public class PostController {
         return "redirect:/users/profile";
     }
 
-    @GetMapping("update")
-    public String updatePost(Long postId, Model model) {
+    @GetMapping("update/{postId}")
+    public String updatePost(@PathVariable Long postId, Model model) {
         model.addAttribute("post", postService.findPostById(postId));
         return "posts/update_post";
     }
 
-    @PostMapping("update/post")
+    @PostMapping("update")
     public String updatePost(
-            @Valid PostDto postDto,
+            @Validated(ValidationGroup.OnUpdate.class) PostDto postDto,
             BindingResult bindingResult,
             Model model
-    ) {
+    ) throws IOException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("post", postDto);
             return "posts/update_post";
         }
 
-        postService
+        postService.updatePostDto(postDto);
+        return "redirect:/users/profile";
     }
 
     @PostMapping("{id}")
@@ -79,5 +80,4 @@ public class PostController {
         model.addAttribute("posts", postService.getAllPosts());
         return "posts/all_posts";
     }
-
 }

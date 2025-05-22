@@ -13,4 +13,6 @@ public interface UserService {
     boolean isLoginExist(String login);
 
     UserDto updateProfile(InputUserDto inputUserDto) throws IOException;
+
+    UserDto findUserById(Long id);
 }

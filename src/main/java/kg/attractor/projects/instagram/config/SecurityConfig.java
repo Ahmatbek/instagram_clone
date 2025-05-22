@@ -34,6 +34,10 @@ public class SecurityConfig {
                                 .requestMatchers("/users/profile").authenticated()
                                 .requestMatchers("/users/update/profile").authenticated()
 
+                                // Likes
+                                .requestMatchers("/likes/like/*").authenticated()
+                                .requestMatchers("/likes/dislike/*").authenticated()
+
                                 .anyRequest().permitAll());
         return http.build();
     }

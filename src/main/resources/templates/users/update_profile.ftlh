@@ -42,10 +42,10 @@
         }
     </style>
 
-    <h1 class="pt-4">Upload New File</h1>
+    <h1 class="pt-4">Update Profile</h1>
 
     <div class="upload-container">
-        <form action="/users/profile" method="POST" enctype="multipart/form-data">
+        <form action="/users/update/profile" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <@spring.formHiddenInput "inputUserDto.id", 'class="form-control"'/>
 
@@ -54,8 +54,8 @@
                 <input type="file"
                        id="photo"
                        name="avatar"
-                       class="form-control"
-                       required>
+                       <#if inputUserDto.avatar??>value="${inputUserDto.avatar}" </#if>
+                       class="form-control">
             </div>
 
             <div class="form-group">
