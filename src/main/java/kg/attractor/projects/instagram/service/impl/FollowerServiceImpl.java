@@ -55,11 +55,13 @@ public class FollowerServiceImpl implements FollowerService {
     @Override
     public void follow(String toFollowId) {
         UserDto userDto = authorizedUserService.getAuthorizedUser();
-        FollowerDto w = new FollowerDto();
-        w.setUserFollower(userDto);
         UserDto toFollow = userService.findUserByLogin(toFollowId);
-        w.setUserReceiver(toFollow);
-        if(!doTheyFollowEachOther(userDto.getId(), toFollow.getId())){
+
+        FollowerDto w = new FollowerDto();
+        w.setUserFollower(toFollow);
+        w.setUserReceiver(userDto);
+
+        if(!doTheyFollowEachOther(toFollow.getId(), userDto.getId())){
             followerRepository.save(followerMapper.mapToEntity(w));
             log.info("Follower followed: {}", toFollowId);
         }

@@ -91,4 +91,11 @@ public class PostController {
         model.addAttribute("comments", commentService.findAllCommentByPostId(postId, page, size));
         return "posts/post_comments";
     }
+
+    @GetMapping("/all")
+    public String allPosts(Model model) {
+        model.addAttribute("posts", postService.getAllPosts());
+        return "posts/all_posts";
+    }
+
 }

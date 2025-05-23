@@ -12,7 +12,7 @@
             <div class="header" data-header></div>
             <div class="body" data-body></div>
         </div>
-
     </template>
+    <script src='../static/script.js'></script>
 
 </@layout.layout>

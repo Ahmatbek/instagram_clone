@@ -47,11 +47,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/posts">All posts</a>
+                            <a class="nav-link" href="/posts/all">All posts</a>
                         </li>
-                    <li class="nav-item">
+                    <#if authenticated??>
+                        <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/posts">Create Post</a>
-                    </li>
+                        </li>
+                    </#if>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/users/search">Search</a>
                     </li>
@@ -61,7 +63,7 @@
 
 
 
-                <#if user??>
+                <#if authenticated??>
                     <a href="/users/profile" class="btn btn-outline-info m-2">Profile</a>
                     <a href="/logout" class="btn btn-outline-info m-2"
                        id="logout">Log out</a>
@@ -82,7 +84,6 @@
 
     </div>
 
-    <script src='../static/css/script.js'></script>
     </body>
     </html>
 
