@@ -26,5 +26,7 @@ logging:
     org:
       springframework:
         security: debug
+    web: info
+    sql: error
   file:
     path: logs

@@ -22,6 +22,7 @@ import org.springframework.util.Assert;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -47,13 +48,16 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public void deleteCommentById(Long commentId) {
+    public void deleteCommentById(Long commentId, Long postId) {
         Assert.notNull(commentId, "commentId must not be null");
 
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NoSuchElementException("comment not found"));
 
-        commentRepository.delete(comment);
+        Long authorizedUserId = authorizedUserService.getAuthorizedUserId();
+
+        if (Objects.equals(authorizedUserId, comment.getPost().getId()) || Objects.equals(authorizedUserId, comment.getUser().getId()))
+            commentRepository.delete(comment);
     }
 
     @Override

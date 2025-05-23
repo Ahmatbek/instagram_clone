@@ -20,4 +20,6 @@ public interface PostService {
     void makeSurePostExist(Long postId);
 
     PostDto updatePostDto(PostDto postDto) throws IOException;
+
+    PageHolder<PostDto> findUserLikedPosts(int page, int size);
 }

@@ -6,7 +6,6 @@ import kg.attractor.projects.instagram.dto.UserDto;
 import kg.attractor.projects.instagram.mapper.impl.PageHolderWrapper;
 import kg.attractor.projects.instagram.mapper.impl.PostMapper;
 import kg.attractor.projects.instagram.model.Post;
-import kg.attractor.projects.instagram.model.User;
 import kg.attractor.projects.instagram.repository.PostRepository;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
@@ -147,5 +146,13 @@ public class PostServiceImpl implements PostService {
         if (postDto.getPhoto() != null && !postDto.getPhoto().isEmpty())
             post.setPhoto(Util.uploadResource(postDto.getPhoto()));
         return postMapper.mapToDto(postRepository.save(post));
+    }
+
+    @Override
+    public PageHolder<PostDto> findUserLikedPosts(int page, int size) {
+        Page<PostDto> posts = postRepository.findUserPosts(authorizedUserService.getAuthorizedUserId(), PageRequest.of(page, size))
+                .map(postMapper::mapToDto);
+
+        return pageHolderWrapper.wrapPageHolder(posts);
     }
 }
