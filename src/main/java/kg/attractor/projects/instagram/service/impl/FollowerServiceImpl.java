@@ -39,6 +39,7 @@ public class FollowerServiceImpl implements FollowerService {
                 .stream()
                 .map(followerMapper::mapToDto)
                 .toList();
+
         return   followerDtos.stream().map(FollowerDto::getUserReceiver).toList();
     }
 
@@ -75,5 +76,4 @@ public class FollowerServiceImpl implements FollowerService {
     public boolean doTheyFollowEachOther(long toFollowId, long receiverId) {
         return followerRepository.findByUserFollowerIdAndUserReceiver(toFollowId, receiverId).isPresent();
     }
-
 }

@@ -1,6 +1,5 @@
 package kg.attractor.projects.instagram.service;
 
-import kg.attractor.projects.instagram.dto.FollowerDto;
 import kg.attractor.projects.instagram.dto.UserDto;
 
 import java.util.List;

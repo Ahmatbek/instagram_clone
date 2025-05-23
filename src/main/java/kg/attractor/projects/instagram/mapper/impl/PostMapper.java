@@ -1,6 +1,7 @@
 package kg.attractor.projects.instagram.mapper.impl;
 
 import kg.attractor.projects.instagram.dto.PostDto;
+import kg.attractor.projects.instagram.dto.UserDto;
 import kg.attractor.projects.instagram.mapper.Mapper;
 import kg.attractor.projects.instagram.model.Post;
 import kg.attractor.projects.instagram.model.User;
@@ -15,7 +16,14 @@ public class PostMapper implements Mapper<PostDto, Post> {
     public PostDto mapToDto(Post entity) {
         return PostDto.builder()
                 .id(entity.getId())
-                .userId(entity.getUser().getId())
+                .userDto(UserDto.builder()
+                        .id(entity.getUser().getId())
+                        .username(entity.getUser().getUsername())
+                        .login(entity.getUser().getLogin())
+                        .info(entity.getUser().getInfo())
+                        .password(entity.getUser().getPassword())
+                        .avatar(entity.getUser().getAvatar())
+                        .build())
                 .description(entity.getDescription())
                 .imageUrl(entity.getPhoto())
                 .build();
@@ -27,7 +35,7 @@ public class PostMapper implements Mapper<PostDto, Post> {
         post.setId(dto.getId());
 
         User user = new User();
-        user.setId(dto.getUserId());
+        user.setId(dto.getUserDto().getId());
 
         post.setUser(user);
         post.setDescription(dto.getDescription());

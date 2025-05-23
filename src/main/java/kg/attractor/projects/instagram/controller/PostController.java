@@ -74,9 +74,13 @@ public class PostController {
     }
 
     @GetMapping("user")
-    public String usersPosts(Model model) {
+    public String usersPosts(
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int size,
+            Model model
+    ) {
         postService.getUsersPosts(authorizedUserService.getAuthorizedUser().getId());
-        model.addAttribute("posts", postService.getAllPosts());
+        model.addAttribute("posts", postService.getAllPosts(page, size));
         return "posts/all_posts";
     }
 
@@ -93,9 +97,12 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public String allPosts(Model model) {
-        model.addAttribute("posts", postService.getAllPosts());
+    public String allPosts(
+            @RequestParam(defaultValue = "0", required = false) Integer page,
+            @RequestParam(defaultValue = "10", required = false) Integer size,
+            Model model
+    ) {
+        model.addAttribute("posts", postService.getAllPosts(page, size));
         return "posts/all_posts";
     }
-
 }

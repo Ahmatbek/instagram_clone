@@ -3,11 +3,13 @@
     <div class="container py-5" style="max-width: 600px;">  <!-- Instagram feed max width -->
         <h1 class="text-center mb-5">All Posts</h1>
 
-        <#if posts?? && posts?size gt 0>
+        <#if posts.content?? && posts.content?size gt 0>
             <div class="d-flex flex-column gap-4">
-                <#list posts as post>
-                    <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
-                        <#if post.imageUrl?? && post.imageUrl?has_content>
+                <#list posts.content as post>
+                    <div class="card shadow-sm border-0"
+                         style="border-radius: 12px; overflow: hidden; cursor: pointer;"
+                         onclick="window.location.href='/posts/comment/${post.id}'">
+                    <#if post.imageUrl?? && post.imageUrl?has_content>
                             <img src="/images/${post.imageUrl}" alt="Post Image"
                                  style="width: 100%; height: auto; max-height: 500px; object-fit: cover; display: block;">
                         </#if>
@@ -16,6 +18,34 @@
                                 ${post.description}
                             </p>
                         </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <#if post.likedByCurrentUser?? && post.likedByCurrentUser>
+                            <form action="/likes/dislike/${post.id}" method="post" onClick="event.stopPropagation();">
+                                <#if _csrf??>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </#if>
+                                <button type="submit" class="btn btn-sm btn-primary rounded-start-pill">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                                        <span>${post.likesCount!0}</span>
+                                    </div>
+                                </button>
+                            </form>
+                        <#else>
+                            <form action="/likes/like/${post.id}" method="post" class="me-2" onClick="event.stopPropagation();">
+                                <#if _csrf??>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </#if>
+                                <button type="submit" class="btn btn-sm btn-outline-secondary rounded-start-pill">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-hand-thumbs-up me-1"></i>
+                                        <span>${post.likesCount!0}</span>
+                                    </div>
+                                </button>
+                            </form>
+                        </#if>
                     </div>
                 </#list>
             </div>

@@ -1,6 +1,5 @@
 package kg.attractor.projects.instagram.controller;
 
-import kg.attractor.projects.instagram.dto.UserDto;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
 import lombok.RequiredArgsConstructor;
