@@ -92,26 +92,14 @@
                 <#list comments.content as comment>
                     <div class="mb-3 pb-3 border-bottom">
                         <div class="d-flex">
-                            <div class="comment-avatar">
-                                <#if comment.userDto?? && comment.userDto.username??>
-                                    ${comment.userDto.username?substring(0,1)?upper_case}
-                                <#else>
-                                    <i class="bi bi-person"></i>
-                                </#if>
-                            </div>
 
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <#if comment.userDto.avatar??>
+                                        <#if comment.userDto.avatar?? && comment.userDto.avatar?has_content>
                                             <img src="/images/${comment.userDto.avatar}"
                                                  class="rounded-circle me-2"
-                                                 style="width: 40px; height: 40px; object-fit: cover;">
-                                        <#else>
-                                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-2"
-                                                 style="width: 40px; height: 40px;">
-                                                <i class="bi bi-person text-white"></i>
-                                            </div>
+                                                 style="width: 40px; height: 40px; object-fit: cover;" alt="avatar">
                                         </#if>
                                         <h6 class="mb-1">${comment.userDto.username!'Anonymous'}</h6>
                                         <small class="comment-date">
