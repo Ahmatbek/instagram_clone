@@ -24,7 +24,6 @@
 
             <div class="d-flex flex-wrap justify-content-center gap-2">
                 <a href="us"></a>
-                <a href="/posts" class="btn btn-outline-dark">Create Post</a>
                 <a href="/users/update/profile" class="btn btn-outline-dark">Update Profile</a>
                 <a href="/followers/userFollower" class="btn btn-outline-dark">Followers</a>
                 <a href="/followers/userReceiver" class="btn btn-outline-dark">Following</a>

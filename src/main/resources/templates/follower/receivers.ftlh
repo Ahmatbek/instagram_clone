@@ -1,7 +1,7 @@
 <#import "../layout.ftlh" as layout>
 <@layout.layout>
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Followers</h1>
+        <h1 class="mb-4 text-center">Followings</h1>
 
         <#if receivers?? && receivers?size gt 0>
             <div class="row">

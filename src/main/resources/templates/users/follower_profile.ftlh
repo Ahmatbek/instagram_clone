@@ -24,10 +24,13 @@
             </div>
 
             <div class="d-flex flex-wrap justify-content-center gap-2">
-                <form action="/followers/${user.login}" method="post" class="d-inline">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <button type="submit" class="btn btn-outline-dark">Follow</button>
-                </form>
+               <#if followed>
+               <#else>
+                   <form action="/followers/${user.login}" method="post" class="d-inline">
+                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                   <button type="submit" class="btn btn-outline-dark">Follow</button>
+               </form>
+               </#if>
 
                 <a href="/followers/userFollower" class="btn btn-outline-dark">Followers</a>
                 <a href="/followers/userReceiver" class="btn btn-outline-dark">Following</a>
@@ -47,13 +50,15 @@
                     <div class="col">
                         <div class="card border-0 shadow-sm h-100">
                             <#if post.imageUrl??>
-                                <img src="/images/${post.imageUrl}" class="card-img-top" style="object-fit: cover; height: 300px;" alt="Post Image">
-                                <a href="/posts/comment/${post.id}">details</a>
+                                <a href="/posts/comment/${post.id}">
+                                    <img src="/images/${post.imageUrl}" class="card-img-top" style="object-fit: cover; height: 300px;" alt="Post Image">
+                                </a>
                             </#if>
                             <div class="card-body text-center">
                                 <p class="card-text">${post.description}</p>
                             </div>
                         </div>
+
                     </div>
                 </#list>
             </div>

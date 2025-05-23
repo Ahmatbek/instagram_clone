@@ -65,6 +65,7 @@ public class UserController {
         model.addAttribute("posts", postService.getUsersPosts(userId));
         model.addAttribute("followers", followerService.numberOfFollowers(userId));
         model.addAttribute("receiver", followerService.numberOfReceivers(userId));
+        model.addAttribute("followed", followerService.doTheyFollowEachOther( userId, authorizedUserService.getAuthorizedUser().getId()));
         return "users/follower_profile";
     }
 
