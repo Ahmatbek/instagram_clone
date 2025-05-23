@@ -48,16 +48,10 @@
                         <div class="card border-0 shadow-sm h-100">
                             <#if post.imageUrl??>
                                 <img src="/images/${post.imageUrl}" class="card-img-top" style="object-fit: cover; height: 300px;" alt="Post Image">
+                                <a href="/posts/comment/${post.id}">details</a>
                             </#if>
                             <div class="card-body text-center">
                                 <p class="card-text">${post.description}</p>
-                                <form action="/posts/${post.id}" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
-                                    <#if _csrf??>
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </#if>
-                                    <input type="hidden" name="_method" value="delete"/>
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                                </form>
                             </div>
                         </div>
                     </div>

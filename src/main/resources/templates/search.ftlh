@@ -13,6 +13,6 @@
             <div class="body" data-body></div>
         </div>
     </template>
-    <script src='../static/script.js'></script>
+    <script src='../static/scripts/script.js'></script>
 
 </@layout.layout>

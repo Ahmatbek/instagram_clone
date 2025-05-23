@@ -29,7 +29,9 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-
+                                // WebSocket endpoints
+                                .requestMatchers("/chats/**", "/topic/**", "/app/**").permitAll()
+                                
                                 // Users
                                 .requestMatchers("/users/profile").authenticated()
                                 .requestMatchers("/users/update/profile").authenticated()
@@ -37,6 +39,7 @@ public class SecurityConfig {
                                 // Likes
                                 .requestMatchers("/likes/like/*").authenticated()
                                 .requestMatchers("/likes/dislike/*").authenticated()
+                                .requestMatchers("/posts/all").permitAll()
 
                                 .anyRequest().permitAll());
         return http.build();
