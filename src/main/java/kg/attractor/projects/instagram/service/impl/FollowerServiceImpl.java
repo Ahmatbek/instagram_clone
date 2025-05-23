@@ -67,9 +67,6 @@ public class FollowerServiceImpl implements FollowerService {
             log.info("Follower followed: {}", toFollowId);
         }
         log.info("Follower followed: {}", toFollowId);
-
-
-
     }
 
     @Override

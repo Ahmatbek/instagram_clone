@@ -6,6 +6,7 @@ import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
 import kg.attractor.projects.instagram.service.PostService;
 import kg.attractor.projects.instagram.service.UserService;
+import kg.attractor.projects.instagram.storage.TemporalStorage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class UserController {
     private final PostService postService;
     private final FollowerService followerService;
     private final UserService userService;
+    private final TemporalStorage temporalStorage;
 
     @GetMapping("profile")
     public String getProfile(Model model) {
@@ -39,6 +41,11 @@ public class UserController {
 
     @GetMapping("update/profile")
     public String updateProfile(Model model) {
+        if (temporalStorage.getTemporalData("password", String.class).isEmpty())
+            return "redirect:/auth/password/confirm";
+        else
+            temporalStorage.removeTemporalData("password");
+
         model.addAttribute("inputUserDto", authorizedUserService.getAuthorizedUserInput());
         return "users/update_profile";
     }
@@ -49,6 +56,7 @@ public class UserController {
             BindingResult bindingResult,
             Model model
     ) throws IOException {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("inputUserDto", user);
             return "users/update_profile";
