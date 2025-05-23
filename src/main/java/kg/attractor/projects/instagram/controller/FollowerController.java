@@ -1,5 +1,6 @@
 package kg.attractor.projects.instagram.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +30,13 @@ public class FollowerController {
     }
 
     @PostMapping("{login}")
-    public String postFollower(@PathVariable String login) {
+    public String postFollower(@PathVariable String login, HttpServletRequest request) {
         followerService.follow(login);
-        return "redirect:/users/profile";
+        return "redirect:"+request.getHeader("referer");
     }
     @PostMapping("unfollow/{login}")
-    public String unfollow(@PathVariable String login) {
+    public String unfollow(@PathVariable String login, HttpServletRequest request) {
         followerService.unfollow(login);
-        return "redirect:/users/profile";
+        return "redirect:"+request.getHeader("referer");
     }
 }
