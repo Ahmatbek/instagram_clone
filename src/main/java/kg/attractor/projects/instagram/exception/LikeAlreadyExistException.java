@@ -1,4 +1,4 @@
-package kg.attractor.projects.instagram.exceptions;
+package kg.attractor.projects.instagram.exception;
 
 public class LikeAlreadyExistException extends RuntimeException {
     public LikeAlreadyExistException(String message) {

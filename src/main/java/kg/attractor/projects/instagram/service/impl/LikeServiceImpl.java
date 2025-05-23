@@ -1,7 +1,7 @@
 package kg.attractor.projects.instagram.service.impl;
 
 import kg.attractor.projects.instagram.dto.LikeDto;
-import kg.attractor.projects.instagram.exceptions.LikeAlreadyExistException;
+import kg.attractor.projects.instagram.exception.LikeAlreadyExistException;
 import kg.attractor.projects.instagram.mapper.impl.LikeMapper;
 import kg.attractor.projects.instagram.model.Like;
 import kg.attractor.projects.instagram.repository.LikeRepository;

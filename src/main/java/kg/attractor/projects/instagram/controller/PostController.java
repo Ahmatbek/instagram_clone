@@ -1,6 +1,5 @@
 package kg.attractor.projects.instagram.controller;
 
-import kg.attractor.projects.instagram.dto.LikeDto;
 import kg.attractor.projects.instagram.dto.PostDto;
 import kg.attractor.projects.instagram.marks.ValidationGroup;
 import kg.attractor.projects.instagram.model.Post;
@@ -98,7 +97,7 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public String allPosts(
+    public String getllPosts(
             @RequestParam(defaultValue = "0", required = false) Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer size,
             Model model
