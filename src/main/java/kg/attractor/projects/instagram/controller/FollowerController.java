@@ -32,6 +32,10 @@ public class FollowerController {
     public String postFollower(@PathVariable String login) {
         followerService.follow(login);
         return "redirect:/users/profile";
-
+    }
+    @PostMapping("unfollow/{login}")
+    public String unfollow(@PathVariable String login) {
+        followerService.unfollow(login);
+        return "redirect:/users/profile";
     }
 }

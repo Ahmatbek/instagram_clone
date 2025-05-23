@@ -4,6 +4,7 @@ package kg.attractor.projects.instagram.service.impl;
 import kg.attractor.projects.instagram.dto.FollowerDto;
 import kg.attractor.projects.instagram.dto.UserDto;
 import kg.attractor.projects.instagram.mapper.impl.FollowerMapper;
+import kg.attractor.projects.instagram.model.Follower;
 import kg.attractor.projects.instagram.repository.FollowerRepository;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -57,7 +59,7 @@ public class FollowerServiceImpl implements FollowerService {
     public void follow(String toFollowId) {
         UserDto userDto = authorizedUserService.getAuthorizedUser();
         UserDto toFollow = userService.findUserByLogin(toFollowId);
-
+        followYourselfCheck(toFollow.getId(), userDto.getId());
         FollowerDto w = new FollowerDto();
         w.setUserFollower(toFollow);
         w.setUserReceiver(userDto);
@@ -75,5 +77,25 @@ public class FollowerServiceImpl implements FollowerService {
     @Override
     public boolean doTheyFollowEachOther(long toFollowId, long receiverId) {
         return followerRepository.findByUserFollowerIdAndUserReceiver(toFollowId, receiverId).isPresent();
+    }
+
+    @Override
+    public void unfollow(String userId) {
+        UserDto userDto = authorizedUserService.getAuthorizedUser();
+        UserDto toFollow = userService.findUserByLogin(userId);
+        followYourselfCheck(toFollow.getId(), userDto.getId());
+        FollowerDto w = new FollowerDto();
+        w.setUserFollower(toFollow);
+        w.setUserReceiver(userDto);
+        Follower cc = followerRepository.findByUserFollowerIdAndUserReceiver(toFollow.getId(), userDto.getId()).orElseThrow(()->new NoSuchElementException("not followed each other"));
+        followerRepository.delete(cc);
+
+    }
+
+    private void followYourselfCheck(Long userId, Long receiverId) {
+        if(userId==receiverId){
+            throw  new NoSuchElementException("you can't follow yourself");
+        }
+
     }
 }

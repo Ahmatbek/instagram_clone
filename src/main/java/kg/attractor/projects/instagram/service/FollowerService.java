@@ -12,4 +12,5 @@ public interface FollowerService {
     void follow(String userId);
 
     boolean doTheyFollowEachOther(long toFollowId, long receiverId);
+    void unfollow(String userId);
 }

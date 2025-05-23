@@ -2,7 +2,6 @@
 <@layout.layout>
     <div class="container py-5">
 
-        <!-- Profile Section -->
         <div class="d-flex flex-column align-items-center text-center mb-5">
             <#if user.avatar?? && user.avatar?has_content>
                 <img src="/images/${user.avatar}" class="rounded-circle mb-3" alt="Avatar"
@@ -25,6 +24,9 @@
 
             <div class="d-flex flex-wrap justify-content-center gap-2">
                <#if followed>
+                <form action="/followers/unfollow/${user.login}" method="post" class="d-inline">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <button type="submit" class="btn btn-outline-dark">Unfollow</button>
                <#else>
                    <form action="/followers/${user.login}" method="post" class="d-inline">
                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -41,7 +43,6 @@
             </#if>
         </div>
 
-        <!-- Posts Grid -->
         <h4 class="text-center mb-4">Your Posts</h4>
 
         <#if posts?? && posts?size gt 0>
