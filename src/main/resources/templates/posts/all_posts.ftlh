@@ -11,7 +11,7 @@
                              style="padding: 12px 16px; cursor: pointer;"
                              onclick="window.location.href='/users/profile/${post.userDto.login}'">
 
-                            <#if post.userDto.profileImageUrl?? && post.userDto.avatar?has_content>
+                            <#if post.userDto.avatar?? && post.userDto.avatar?has_content>
                                 <img src="/images/${post.userDto.avatar}"
                                      class="rounded-circle me-2"
                                      style="width: 32px; height: 32px; object-fit: cover;">

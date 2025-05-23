@@ -2,6 +2,7 @@ package kg.attractor.projects.instagram.controller;
 
 import jakarta.validation.Valid;
 import kg.attractor.projects.instagram.dto.InputUserDto;
+import kg.attractor.projects.instagram.dto.UserDto;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.FollowerService;
 import kg.attractor.projects.instagram.service.PostService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("users")
@@ -79,7 +81,8 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<?> getUsers() {
-        return ResponseEntity.ofNullable(userService.getAllUsers());
+        ResponseEntity<List<UserDto>> listResponseEntity = ResponseEntity.ofNullable(userService.getAllUsers());
+        return listResponseEntity;
     }
 
     @GetMapping("/search")
