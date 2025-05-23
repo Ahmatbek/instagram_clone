@@ -56,9 +56,10 @@ public class CommentServiceImpl implements CommentService {
 
         Long authorizedUserId = authorizedUserService.getAuthorizedUserId();
 
-        if (Objects.equals(authorizedUserId, comment.getPost().getId()) || Objects.equals(authorizedUserId, comment.getUser().getId()))
+        if (Objects.equals(authorizedUserId, comment.getPost().getUser().getId()) || Objects.equals(authorizedUserId, comment.getUser().getId())){
             commentRepository.delete(comment);
-    }
+         }
+        }
 
     @Override
     public PageHolder<CommentDto> findAllCommentByPostId(Long postId, int page, int size) {

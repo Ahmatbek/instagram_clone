@@ -124,7 +124,7 @@
                                        <#assign
                                        name =  SPRING_SECURITY_CONTEXT.authentication.principal.getUsername()>
                                        <#if name == post.userDto.login || name == comment.userDto.login>
-                                           <form action="/comments/${comment.id}" method="post">
+                                           <form action="/comments/${comment.id}?postId=${post.id}" method="post">
                                                <#if _csrf??>
                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                </#if>
