@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,14 +94,19 @@ public class PostServiceImpl implements PostService {
                 )
         );
         posts.forEach(postDto -> postDto.setLikesCount(likeService.findAllLikesByPostId(postDto.getId())));
-        return pageHolderWrapper.wrapPageHolder(new PageImpl<>(posts, pageable, totalPostsCount));
+        return pageHolderWrapper.wrapPageHolder(
+                new PageImpl<>(
+                        posts.stream()
+                                .distinct()
+                                .toList(), pageable, totalPostsCount)
+        );
     }
 
     private List<PostDto> findAllPostsOrderedByLike(Pageable pageable) {
         return postRepository.findAllPostsOrderedByIdLike(pageable)
                 .stream()
                 .map(postMapper::mapToDto)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

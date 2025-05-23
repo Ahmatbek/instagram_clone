@@ -103,13 +103,16 @@
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                       <#if comment.userDto.avatar??> <img src="/images/${comment.userDto.avatar}" alt="">
-                                       <#else>
-                                           <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white mb-3"
-                                                style="width: 150px; height: 150px;">
-                                               <i class="bi bi-person-fill fs-1"></i>
-                                           </div>
-                                       </#if>
+                                        <#if comment.userDto.avatar??>
+                                            <img src="/images/${comment.userDto.avatar}"
+                                                 class="rounded-circle me-2"
+                                                 style="width: 40px; height: 40px; object-fit: cover;">
+                                        <#else>
+                                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-2"
+                                                 style="width: 40px; height: 40px;">
+                                                <i class="bi bi-person text-white"></i>
+                                            </div>
+                                        </#if>
                                         <h6 class="mb-1">${comment.userDto.username!'Anonymous'}</h6>
                                         <small class="comment-date">
                                             <#if comment.createdAt??>
