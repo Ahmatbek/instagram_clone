@@ -1,5 +1,6 @@
 package kg.attractor.projects.instagram.controller;
 
+import kg.attractor.projects.instagram.dto.LikeDto;
 import kg.attractor.projects.instagram.dto.PostDto;
 import kg.attractor.projects.instagram.marks.ValidationGroup;
 import kg.attractor.projects.instagram.model.Post;
@@ -74,9 +75,13 @@ public class PostController {
     }
 
     @GetMapping("user")
-    public String usersPosts(Model model) {
+    public String usersPosts(
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int size,
+            Model model
+    ) {
         postService.getUsersPosts(authorizedUserService.getAuthorizedUser().getId());
-        model.addAttribute("posts", postService.getAllPosts());
+        model.addAttribute("posts", postService.getAllPosts(page, size));
         return "posts/all_posts";
     }
 
@@ -93,9 +98,22 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public String allPosts(Model model) {
-        model.addAttribute("posts", postService.getAllPosts());
+    public String allPosts(
+            @RequestParam(defaultValue = "0", required = false) Integer page,
+            @RequestParam(defaultValue = "10", required = false) Integer size,
+            Model model
+    ) {
+        model.addAttribute("posts", postService.getAllPosts(page, size));
         return "posts/all_posts";
     }
 
+    @GetMapping("liked")
+    public String findLikedPosts(
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int size,
+            Model model
+    ) {
+        model.addAttribute("posts", postService.findUserLikedPosts(page, size));
+        return "posts/all_posts";
+    }
 }

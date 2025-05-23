@@ -119,15 +119,22 @@
                                             </#if>
                                         </small>
                                     </div>
-                                    <form action="/comments/${comment.id}" method="post">
-                                        <#if _csrf??>
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                        </#if>
-                                        <input type="hidden" name="_method" value="delete"/>
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+
+                                   <#if SPRING_SECURITY_CONTEXT.authentication.principal.getUsername()??>
+                                       <#assign
+                                       name =  SPRING_SECURITY_CONTEXT.authentication.principal.getUsername()>
+                                       <#if name == post.userDto.login || name == comment.userDto.login>
+                                           <form action="/comments/${comment.id}" method="post">
+                                               <#if _csrf??>
+                                                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                               </#if>
+                                               <input type="hidden" name="_method" value="delete"/>
+                                               <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                   <i class="bi bi-trash"></i>
+                                               </button>
+                                           </form>
+                                       </#if>
+                                   </#if>
                                 </div>
                                 <p class="mt-2 mb-0">${comment.message}</p>
                             </div>
