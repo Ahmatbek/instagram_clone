@@ -12,4 +12,6 @@ public interface AuthorizedUserService {
     Long getAuthorizedUserId();
 
     InputUserDto getAuthorizedUserInput();
+
+    boolean isUserAuthenticated(String password);
 }

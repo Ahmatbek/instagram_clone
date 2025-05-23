@@ -9,10 +9,14 @@ import kg.attractor.projects.instagram.repository.UserRepository;
 import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.NoSuchElementException;
 
@@ -22,6 +26,7 @@ public class AuthorizedUserServiceImpl implements AuthorizedUserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final InputUserMapper inputUserMapper;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public UserDetails getAuthentication() {
@@ -52,5 +57,18 @@ public class AuthorizedUserServiceImpl implements AuthorizedUserService {
         return userRepository.findUserByLogin(getAuthentication().getUsername())
                 .map(inputUserMapper::mapToDto)
                 .orElseThrow(() -> new NoSuchElementException("auth user not found"));
+    }
+
+    @Override
+    public boolean isUserAuthenticated(String password) {
+        Assert.isTrue(password != null && !password.isBlank(), "password is blank");
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(getAuthentication().getUsername(), password);
+        try {
+            authenticationManager.authenticate(authentication);
+            return true;
+        } catch (AuthenticationException authenticationException) {
+            return false;
+        }
     }
 }
