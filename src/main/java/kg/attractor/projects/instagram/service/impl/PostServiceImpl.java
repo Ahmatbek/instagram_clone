@@ -13,16 +13,19 @@ import kg.attractor.projects.instagram.service.LikeService;
 import kg.attractor.projects.instagram.service.PostService;
 import kg.attractor.projects.instagram.util.Util;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -43,6 +46,7 @@ public class PostServiceImpl implements PostService {
         String fileName = Util.uploadResource(postDto.getPhoto());
         Post post = postMapper.mapToEntity(postDto);
         post.setPhoto(fileName);
+        log.info("New Post was created: {}", post.getDescription());
         return postMapper.mapToDto(postRepository.save(post));
     }
 
@@ -53,7 +57,7 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findByPostIdAndUserId(userId, postId)
                 .orElseThrow(() -> new NoSuchElementException("Post not found" + postId));
         postRepository.delete(post);
-
+        log.warn("post deleted: {}", post.getDescription());
     }
 
     @Override
@@ -151,6 +155,8 @@ public class PostServiceImpl implements PostService {
         post.setDescription(postDto.getDescription());
         if (postDto.getPhoto() != null && !postDto.getPhoto().isEmpty())
             post.setPhoto(Util.uploadResource(postDto.getPhoto()));
+        log.info("Post was updated: {}", post.getDescription());
+
         return postMapper.mapToDto(postRepository.save(post));
     }
 

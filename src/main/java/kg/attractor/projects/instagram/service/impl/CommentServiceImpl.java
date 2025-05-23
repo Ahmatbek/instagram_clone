@@ -11,6 +11,7 @@ import kg.attractor.projects.instagram.service.AuthorizedUserService;
 import kg.attractor.projects.instagram.service.CommentService;
 import kg.attractor.projects.instagram.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +20,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -56,10 +59,12 @@ public class CommentServiceImpl implements CommentService {
 
         Long authorizedUserId = authorizedUserService.getAuthorizedUserId();
 
-        if (Objects.equals(authorizedUserId, comment.getPost().getUser().getId()) || Objects.equals(authorizedUserId, comment.getUser().getId())){
+        if (Objects.equals(authorizedUserId, comment.getPost().getUser().getId()) || Objects.equals(authorizedUserId, comment.getUser().getId())) {
             commentRepository.delete(comment);
-         }
+
+            log.warn("comment deleted: {}", comment.getMessage());
         }
+    }
 
     @Override
     public PageHolder<CommentDto> findAllCommentByPostId(Long postId, int page, int size) {

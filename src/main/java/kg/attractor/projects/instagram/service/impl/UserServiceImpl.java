@@ -11,6 +11,7 @@ import kg.attractor.projects.instagram.service.AuthorityService;
 import kg.attractor.projects.instagram.service.UserService;
 import kg.attractor.projects.instagram.util.Util;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,16 +22,17 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final AuthorityService authorityService;
-    private final PasswordEncoder passwordEncoder;
     private final InputUserMapper inputUserMapper;
 
     @Override
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto registerUser(UserDto userDto) {
+        log.info("registered user: {}", userDto.getLogin());
         userDto.setAuthority(authorityService.findByAuthorityName("USER"));
         return userMapper.mapToDto(userRepository.save(userMapper.mapToEntity(userDto)));
     }
@@ -70,6 +73,7 @@ public class UserServiceImpl implements UserService {
         MyUserDetails myUserDetails = new MyUserDetails(userDto.getLogin(), userDto.getAuthority().getName(), userDto.getPassword());
         Authentication authentication = new UsernamePasswordAuthenticationToken(myUserDetails, null, myUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("user updated: {} date: {}", user.getLogin(), LocalDateTime.now());
         return userDto;
     }
 

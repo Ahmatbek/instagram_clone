@@ -13,7 +13,6 @@ import java.util.Map;
 @Service
 public class ErrorServiceImpl implements ErrorService {
 
-
     @Override
     public ErrorResponseBody makeResponse(Exception e) {
         String message = e.getMessage();
